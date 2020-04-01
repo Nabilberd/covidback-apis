@@ -18,27 +18,11 @@ public class RegionService {
     private RegionMongoRepository repository;
 
     public List<RegionVo> getRegionList() {
-        return repository.findAll().stream().map(region -> {
-            RegionVo regionVo = new RegionVo();
-            regionVo.setLabel(region.getLabel());
-            regionVo.setLatitude(region.getLatitude());
-            regionVo.setLongitude(region.getLongitude());
-            regionVo.setActiveCases(region.getActiveCases());
-            regionVo.setDeathsCases(region.getDeathsCases());
-            regionVo.setRecoveredCases(region.getRecoveredCases());
-            return regionVo;
-        }).collect(Collectors.toList());
+        return repository.findAll().stream().map(region -> mapEntityToModel(region)).collect(Collectors.toList());
     }
 
     public void saveRegion(RegionVo regionVo) {
-        Region region = new Region();
-        region.setLabel(regionVo.getLabel());
-        region.setLatitude(regionVo.getLatitude());
-        region.setLongitude(regionVo.getLongitude());
-        region.setActiveCases(regionVo.getActiveCases());
-        region.setDeathsCases(regionVo.getDeathsCases());
-        region.setRecoveredCases(regionVo.getRecoveredCases());
-        repository.save(region);
+        repository.save(mapModelToEntity(regionVo));
     }
 
     public void updateRegion(String label, StateUpdate stateUpdate) {
@@ -48,5 +32,28 @@ public class RegionService {
         if(stateUpdate.getRecoveredCases() != null) region.setRecoveredCases(stateUpdate.getRecoveredCases());
         repository.save(region);
     }
+
+    public RegionVo mapEntityToModel(Region region){
+        RegionVo regionVo = new RegionVo();
+        regionVo.setLabel(region.getLabel());
+        regionVo.setLatitude(region.getLatitude());
+        regionVo.setLongitude(region.getLongitude());
+        regionVo.setActiveCases(region.getActiveCases());
+        regionVo.setDeathsCases(region.getDeathsCases());
+        regionVo.setRecoveredCases(region.getRecoveredCases());
+        return regionVo;
+    }
+
+    public Region mapModelToEntity(RegionVo regionVo){
+        Region region = new Region();
+        region.setLabel(regionVo.getLabel());
+        region.setLatitude(regionVo.getLatitude());
+        region.setLongitude(regionVo.getLongitude());
+        region.setActiveCases(regionVo.getActiveCases());
+        region.setDeathsCases(regionVo.getDeathsCases());
+        region.setRecoveredCases(regionVo.getRecoveredCases());
+        return region;
+    }
+
 
 }

@@ -1,28 +1,23 @@
-package com.example.covidback.application.entities;
+package com.example.covidback.application.models;
 
+import com.example.covidback.application.entities.Region;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Document(collection = "countries")
 @Data
-public class Country {
+public class CountryVo {
 
-    @Id
-    private String idCountry;
     private String label;
-    private LocalDateTime lastModifiedDate;
+    private LocalDateTime lastModifiedDate = LocalDateTime.now();
     private int totalActive;
     private int totalDied;
     private int totalRecovered;
     private int totalExclus;
 
-    @DBRef
-    private List<Region> regions;
-
+    private List<RegionVo> regions;
 
 }
