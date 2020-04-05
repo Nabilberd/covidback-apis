@@ -75,7 +75,7 @@ public class CountryService {
 
     public LocalDateTime stringToDate(String heure){
         LocalDate date = LocalDate.now();
-        DateTimeFormatter parser = DateTimeFormatter.ofPattern("hh:mm:ss");
+        DateTimeFormatter parser = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime time = LocalTime.parse(heure, parser);
         LocalDateTime localDateTime = LocalDateTime.of(date, time);
         return localDateTime;
