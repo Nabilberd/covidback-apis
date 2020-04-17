@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.mail.MessagingException;
 
+@CrossOrigin
 @RestController
 public class MailController {
 
